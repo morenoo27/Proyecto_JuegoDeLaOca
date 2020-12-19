@@ -117,7 +117,7 @@ final class Casilla {
                 casillaOca(posicionArrayOca);
                 break;
             case 31:
-                System.out.println("Al pozoooooooo");
+                System.out.println("Al pozo mi rei");
                 //hasta que alguien no pse por el pozo, no se vuelev a tirar
                 break;
             case 32:
