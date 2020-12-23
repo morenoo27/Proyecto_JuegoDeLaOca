@@ -1,0 +1,78 @@
+/*
+    Para esta clase vamos a tener las siguientes sentencias, ya que tenemos
+diferentes tipos de casillas:
+    
+    ·Oca: Casillas 5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 y 59. 
+The mitical "De oca a oca y tiro porque me toca"
+    ·Puente: Casilla 6 y 12.
+The mitical "De puente a puente y tiro porque me lleva la corriente"
+    ·Posada: Casilla 19.
+Si se cae en esta casilla se pierde un turno.
+    ·Pozo: Casilla 31.
+Si se cae en esta casilla, NO se puede volver a jugar hasta que no pase otro 
+jugador por esa casilla.
+    ·Laberinto: Casilla 42. 
+Si se cae en esta casilla, se está obligado a retroceder a la casilla 30.
+    ·Cárcel: Casilla 56.
+Si se cae en esta casilla, hay que permanecer dos turnos sin jugar.
+    ·Dados: Casillas 26 y 53. 
+Si se cae en estas casillas, se suma la marcación de la casilla de los dados 
+(26 o 53) y se avanza tanto como resulte.
+    ·Calavera: Casilla 58. 
+Si se cae en esta casilla, hay que volver a la Casilla 1.
+    
+    ¡¡Mirar como hacer esto!!
+
+    ·Entrar al Jardín de la Oca: 
+Es necesario sacar los puntos justos para entrar, en caso de exceso se 
+retroceden tantas casillas como puntos sobrantes.
+
+
+Las dimensiones de un tablero de la oca son de la siguiente manera:
+    
+
+         |24| |23| |22| |21| |20| |19| |18| |17| |16|
+         |25| |46| |45| |44| |43| |42| |41| |40| |15|
+         |26| |47| |60| |59| |58| |57| |56| |39| |14|
+         |27| |48| |61| |62| |62| |63| |55| |38| |13|
+         |28| |49| |50| |51| |52| |53| |54| |37| |12|
+         |29| |30| |31| |32| |33| |34| |35| |36| |11|
+    | 1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|
+
+
+
+             |25| |24| |23| |22| |21| |20| |19| |18|
+        |26|      |47| |46| |45| |44| |43| |42|      |17|
+        |27| |48|           |62| |61| |60|      |41| |16|
+        |28| |49|        |        |        |59| |40| |15|
+        |29| |50|        |   63   |        |58| |39| |14|
+        |30| |51|        |________|        |57| |40| |13|
+        |31|      |52| |53| |54| |55| |56|      |39| |12|
+             |32| |33| |34| |35| |36| |37| |38|      |11|
+    |1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|
+
+ */
+package oca;
+
+/**
+ *
+ * @author aleja
+ */
+public class Tablero {
+    
+    private Casilla[] casilla;
+    private Jugador jugador;
+            
+    //vamos a crear el tablero por defecto, ya que va a haber un solo tablero
+    public Tablero(){
+        
+        //el tablero esta formado de 63 casillas, para representar eso,
+        //crearemos un array de 63 posiciones
+        this.casilla = new Casilla[63];
+        
+    }
+    
+    public void checkeoSentencia(){
+        
+    }
+}
