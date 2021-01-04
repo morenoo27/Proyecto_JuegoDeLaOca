@@ -68,15 +68,46 @@ public class Juego {
             System.out.println("Jugador " + (i + 1) + " : " + jugadores[i]);
         }
         
+        //empezamos el tablero(tambien tenemos que crear uno)
+        Tablero tablero = new Tablero();
+        
+        tablero.llenarTablero();
+        tablero.nombrarTablero();
+        
         do{
-            for (int i = 0; i < 10; i++) {
-                System.out.print(i + "-");
+            int numero = 0;
+            if (tablero.equals("Oca")) {
                 
-                if (i==3) {
-                    finalJuego = false;
-                    break;
-                }
             }
+            numero++;
         }while(finalJuego);
+    }
+    
+    public void Oca(int numero, int i) {
+        
+        switch (numero) {
+            case 5:
+            case 14:
+            case 23:
+            case 32:
+            case 41:
+            case 50:
+                jugador.moverse(5);
+                jugador.moverse(jugador.tirarDados());
+                break;
+            case 9:
+            case 18:
+            case 27:
+            case 36:
+            case 45:
+            case 54:
+                jugador.moverse(5);
+                jugador.moverse(jugador.tirarDados());
+                break;
+            case 59:
+                jugador.moverse(-5);
+                jugador.moverse(jugador.tirarDados());
+                break;
+        }
     }
 }
