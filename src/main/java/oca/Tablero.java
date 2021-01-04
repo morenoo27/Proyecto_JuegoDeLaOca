@@ -61,42 +61,41 @@ package oca;
 public class Tablero {
 
     private Casilla[] casilla;
-    private Jugador jugador;
     private String[] nombreCasilla = new String[64];
-    
+
     //vamos a crear la casilla normal, que la hemos creado como la 
     //predeterminada
-    private final Casilla NORMAL = new Casilla();
-    
+    private final Casilla NORMAL = new Casilla();//No sentencia, solo una tirada
+
     //Casilla de inicio
-    private final Casilla INICIO = new Casilla();
+    private final Casilla INICIO = new Casilla();//No sentencia , solo una tirada y se pasa al siguiente jugador
 
     //vamos a crear la casilla oca
-    private final Casilla OCA = new Casilla(true, false, true);
+    private final Casilla OCA = new Casilla(true, false, true, false);//si sentencia, va a la siguiente oca y vuelve a tirar una vez mas
 
     //casilla puente
-    private final Casilla PUENTE = new Casilla(true, true, false);
+    private final Casilla PUENTE = new Casilla(true, true, false, false);//Si sentencia, se va a la posada y se pierde el turno
 
     //casilla posada
-    private final Casilla POSADA = new Casilla(true, true, false);
+    private final Casilla POSADA = new Casilla(true, true, false, false);//si sentencia, se pierde el turno
 
     //casilla pozo
-    private final Casilla POZO = new Casilla(true, true, false);
+    private final Casilla POZO = new Casilla(true, true, false, false);//si sentencia, se pierde el turno hasta que alguien pase por el
 
     //casilla laberinto
-    private final Casilla LABERINTO = new Casilla(true, true, false);
+    private final Casilla LABERINTO = new Casilla(true, true, false, false);//si sentencia, se pierde el turno y retrocede x casillas
 
     //casilla carcel
-    private final Casilla CARCEL = new Casilla(true, true, false);
+    private final Casilla CARCEL = new Casilla(true, true, false, false);//si sentencia, pierde 3 turnos
 
     //caslla dados
-    private final Casilla DAODS = new Casilla(true, false, true);
+    private final Casilla DAODS = new Casilla(true, true, false, false);//si sentencia
 
     //casilla calavera
-    private final Casilla CALAVERA = new Casilla(true, true, false);
+    private final Casilla CALAVERA = new Casilla(true, true, false, false);//si sentencia, se vuelve al inicio
 
     //casilla final
-    private final Casilla FINAL = new Casilla(true, true, false);
+    private final Casilla FINAL = new Casilla(true, true, false, true);//si sentencia, acaba el tableroDePrueba
 
     //vamos a crear el tablero por defecto, ya que va a haber un solo tablero
     public Tablero() {
@@ -114,7 +113,6 @@ public class Tablero {
         //creamos un for que recorra cada posicion del tablero
         for (int i = 0; i < casilla.length; i++) {
             System.out.println("Casilla " + i + "=" + casilla[i]);
-
         }
     }
 
@@ -124,14 +122,15 @@ public class Tablero {
 
         //creamos un for para recorrer el arrat con las casillas
         for (int i = 0; i < this.casilla.length; i++) {
+            
             if (i == 0 || i == 5 || i == 6 || i == 9 || i == 12 || i == 14
                     || i == 18 || i == 19 || i == 23 || i == 26 || i == 27
                     || i == 31 || i == 32 || i == 36 || i == 41 || i == 42
                     || i == 45 || i == 50 || i == 52 || i == 53 || i == 54
                     || i == 58 || i == 59 || i == 63) {
-                
+
                 //la casilla 0 sera para elegir el orden
-                if (i==0) {
+                if (i == 0) {
                     this.casilla[i] = INICIO;
                 }
                 //vamosa a meter un if para si es Oca
@@ -188,7 +187,7 @@ public class Tablero {
             }
         }
     }
-    
+
     public void nombrarTablero() {
 
         //creamos un for para recorrer el arrat con las casillas
@@ -198,9 +197,9 @@ public class Tablero {
                     || i == 31 || i == 32 || i == 36 || i == 41 || i == 42
                     || i == 45 || i == 50 || i == 52 || i == 53 || i == 54
                     || i == 58 || i == 59 || i == 63) {
-                
+
                 //la casilla 0 sera para elegir el orden
-                if (i==0) {
+                if (i == 0) {
                     this.nombreCasilla[i] = "Inicio";
                 }
                 //vamosa a meter un if para si es Oca
@@ -257,7 +256,7 @@ public class Tablero {
             }
         }
     }
-    
+
     public void mostrarNombresTablero() {
 
         //creamos un for que recorra cada posicion del tablero
@@ -270,11 +269,11 @@ public class Tablero {
     public static void main(String[] args) {
 
         //creamos el tablero
-        Tablero juego = new Tablero();
+        Tablero tableroDePrueba = new Tablero();
 
-        juego.llenarTablero();
-        juego.nombrarTablero();
-        juego.mostrarTablero();
-        juego.mostrarNombresTablero();
+        tableroDePrueba.llenarTablero();
+        tableroDePrueba.nombrarTablero();
+        tableroDePrueba.mostrarTablero();
+        tableroDePrueba.mostrarNombresTablero();
     }
 }
