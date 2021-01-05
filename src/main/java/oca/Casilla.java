@@ -16,7 +16,7 @@ final class Casilla {
     //la casilla por defecto sera la normal, no tienen SENTENCIA y una vez 
     //movida la ficha, de pierde el turno y tira otrto jugador
     public Casilla() {
-        
+
         this.SENTENCIA = false;
         this.PIERDETURNO = true;
         this.VUELVEATIRAR = false;
@@ -30,6 +30,22 @@ final class Casilla {
         this.PIERDETURNO = PIERDETURNO;
         this.VUELVEATIRAR = VUELVEATIRAR;
         this.FINAL = FINAL;
+    }
+
+    public boolean getSENTENCIA() {
+        return this.SENTENCIA;
+    }
+
+    public boolean getPIERDETURNO() {
+        return this.PIERDETURNO;
+    }
+
+    public boolean getVUELVEATIRAR() {
+        return this.VUELVEATIRAR;
+    }
+
+    public boolean getFINAL() {
+        return this.FINAL;
     }
 
     @Override
