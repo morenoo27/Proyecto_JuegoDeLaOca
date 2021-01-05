@@ -89,7 +89,7 @@ public class Tablero {
     private final Casilla CARCEL = new Casilla(true, true, false, false);//si sentencia, pierde 3 turnos
 
     //caslla dados
-    private final Casilla DAODS = new Casilla(true, true, false, false);//si sentencia
+    private final Casilla DADOS = new Casilla(true, true, false, false);//si sentencia
 
     //casilla calavera
     private final Casilla CALAVERA = new Casilla(true, true, false, false);//si sentencia, se vuelve al inicio
@@ -122,65 +122,56 @@ public class Tablero {
 
         //creamos un for para recorrer el arrat con las casillas
         for (int i = 0; i < this.casilla.length; i++) {
-            
+
             if (i == 0 || i == 5 || i == 6 || i == 9 || i == 12 || i == 14
                     || i == 18 || i == 19 || i == 23 || i == 26 || i == 27
                     || i == 31 || i == 32 || i == 36 || i == 41 || i == 42
                     || i == 45 || i == 50 || i == 52 || i == 53 || i == 54
                     || i == 58 || i == 59 || i == 63) {
 
-                //la casilla 0 sera para elegir el orden
-                if (i == 0) {
-                    this.casilla[i] = INICIO;
+                switch (i) {
+                    case 5:
+                    case 9:
+                    case 14:
+                    case 18:
+                    case 23:
+                    case 27:
+                    case 32:
+                    case 36:
+                    case 41:
+                    case 45:
+                    case 50:
+                    case 54:
+                    case 59:
+                        this.casilla[i] = OCA;
+                        break;
+                    case 6:
+                    case 12:
+                        this.casilla[i] = PUENTE;
+                        break;
+                    case 19:
+                        this.casilla[i] = POSADA;
+                        break;
+                    case 31:
+                        this.casilla[i] = POZO;
+                        break;
+                    case 42:
+                        this.casilla[i] = LABERINTO;
+                        break;
+                    case 26:
+                    case 53:
+                        this.casilla[i] = DADOS;
+                        break;
+                    case 52:
+                        this.casilla[i] = CARCEL;
+                        break;
+                    case 58:
+                        this.casilla[i] = CALAVERA;
+                        break;
+                    case 63:
+                        this.casilla[i] = FINAL;
+                        break;
                 }
-                //vamosa a meter un if para si es Oca
-                if (i == 5 || i == 9 || i == 14 || i == 18 || i == 23 || i == 27
-                        || i == 32 || i == 36 || i == 41 || i == 45
-                        || i == 50 || i == 54 || i == 59) {
-
-                    this.casilla[i] = OCA;
-                }
-                //para si es Puente
-                if (i == 6 || i == 12) {
-
-                    this.casilla[i] = PUENTE;
-                }
-                //para si es Posada
-                if (i == 19) {
-
-                    this.casilla[i] = POSADA;
-                }
-                //para si es Pozo
-                if (i == 31) {
-
-                    this.casilla[i] = POZO;
-                }
-                //para si es Laberinto
-                if (i == 42) {
-
-                    this.casilla[i] = LABERINTO;
-                }
-                //para si es Dados
-                if (i == 26 || i == 53) {
-
-                    this.casilla[i] = DAODS;
-                }
-                //para si es Carcel
-                if (i == 52) {
-
-                    this.casilla[i] = CARCEL;
-                }
-                //para si es Calavera
-                if (i == 58) {
-
-                    this.casilla[i] = CALAVERA;
-                }
-                //para si es el Final
-                if (i == 63) {
-
-                    this.casilla[i] = FINAL;
-                }
-
             } else {
 
                 this.casilla[i] = NORMAL;
@@ -198,58 +189,49 @@ public class Tablero {
                     || i == 45 || i == 50 || i == 52 || i == 53 || i == 54
                     || i == 58 || i == 59 || i == 63) {
 
-                //la casilla 0 sera para elegir el orden
-                if (i == 0) {
-                    this.nombreCasilla[i] = "Inicio";
+                switch (i) {
+                    case 5:
+                    case 9:
+                    case 14:
+                    case 18:
+                    case 23:
+                    case 27:
+                    case 32:
+                    case 36:
+                    case 41:
+                    case 45:
+                    case 50:
+                    case 54:
+                    case 59:
+                        this.nombreCasilla[i] = "Oca";
+                        break;
+                    case 6:
+                    case 12:
+                        this.nombreCasilla[i] = "Puente";
+                        break;
+                    case 19:
+                        this.nombreCasilla[i] = "Posada";
+                        break;
+                    case 31:
+                        this.nombreCasilla[i] = "Pozo";
+                        break;
+                    case 42:
+                        this.nombreCasilla[i] = "Laberinto";
+                        break;
+                    case 26:
+                    case 53:
+                        this.nombreCasilla[i] = "Dados";
+                        break;
+                    case 52:
+                        this.nombreCasilla[i] = "Carcel";
+                        break;
+                    case 58:
+                        this.nombreCasilla[i] = "Calavera";
+                        break;
+                    case 63:
+                        this.nombreCasilla[i] = "Final";
+                        break;
                 }
-                //vamosa a meter un if para si es Oca
-                if (i == 5 || i == 9 || i == 14 || i == 18 || i == 23 || i == 27
-                        || i == 32 || i == 36 || i == 41 || i == 45
-                        || i == 50 || i == 54 || i == 59) {
-
-                    this.nombreCasilla[i] = "Oca";
-                }
-                //para si es Puente
-                if (i == 6 || i == 12) {
-
-                    this.nombreCasilla[i] = "Puente";
-                }
-                //para si es Posada
-                if (i == 19) {
-
-                    this.nombreCasilla[i] = "Posada";
-                }
-                //para si es Pozo
-                if (i == 31) {
-
-                    this.nombreCasilla[i] = "Pozo";
-                }
-                //para si es Laberinto
-                if (i == 42) {
-
-                    this.nombreCasilla[i] = "Laberinto";
-                }
-                //para si es Dados
-                if (i == 26 || i == 53) {
-
-                    this.nombreCasilla[i] = "Dados";
-                }
-                //para si es Carcel
-                if (i == 52) {
-
-                    this.nombreCasilla[i] = "Carcel";
-                }
-                //para si es Calavera
-                if (i == 58) {
-
-                    this.nombreCasilla[i] = "Calavera";
-                }
-                //para si es el Final
-                if (i == 63) {
-
-                    this.nombreCasilla[i] = "Fin";
-                }
-
             } else {
 
                 this.nombreCasilla[i] = "Normal";
