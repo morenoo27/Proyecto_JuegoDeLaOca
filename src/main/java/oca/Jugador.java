@@ -23,14 +23,6 @@ class Jugador {
         this.posicion = 0;
     }
 
-    public int tiradaInicial() {
-
-        //vamosa a tener que crear un objeto de tipo random
-        Random random = new Random();
-
-        return random.nextInt(7);//devuelve un numero entre 0-6
-    }
-
     public int tirarDados() {
 
         //vamosa a tener que crear un objeto de tipo random
@@ -41,14 +33,17 @@ class Jugador {
         return random.nextInt(7);//devuelve un numero entre 0-6
     }
 
-    public void moverse(int movimiento){
-        
+    public void moverse(int movimiento) {
+
         this.posicion += movimiento;
     }
-    @Override
-    public String toString() {
-        return "Jugador{" + "nombre=" + NOMBRE + ", apodo=" + APODO + ", posicion=" + posicion + '}';
+
+    public int getPosicion() {
+        return posicion;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Jugador{" + "nombre = " + NOMBRE + ", apodo = " + APODO + ", posicion = " + posicion + '}';
+    }
 }
