@@ -49,13 +49,12 @@ Las dimensiones de un tablero de la oca son de la siguiente manera:
         |30| |51|        |________|        |57| |40| |13|
         |31|      |52| |53| |54| |55| |56|      |39| |12|
              |32| |33| |34| |35| |36| |37| |38|      |11|
-    |1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|
+   | 1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|
 
  */
 package oca;
 
-/**
- *
+/*
  * @author aleja
  */
 public class Tablero {
@@ -71,31 +70,40 @@ public class Tablero {
     private final Casilla INICIO = new Casilla();//No sentencia , solo una tirada y se pasa al siguiente jugador
 
     //vamos a crear la casilla oca
-    private final Casilla OCA = new Casilla(true, false, true, false);//si sentencia, va a la siguiente oca y vuelve a tirar una vez mas
+    private final Casilla OCA = new Casilla(true, 0, true, true, false, false);
+    //si sentencia, va a la siguiente oca y vuelve a tirar una vez mas
 
     //casilla puente
-    private final Casilla PUENTE = new Casilla(true, true, false, false);//Si sentencia, se va a la posada y se pierde el turno
+    private final Casilla PUENTE = new Casilla(true, 1, false, true, false, false);
+    //Si sentencia, se va a la posada y se pierde el turno
 
     //casilla posada
-    private final Casilla POSADA = new Casilla(true, true, false, false);//si sentencia, se pierde el turno
+    private final Casilla POSADA = new Casilla(true, 1, false, false, false, false);
+    //si sentencia, se pierde el turno
 
     //casilla pozo
-    private final Casilla POZO = new Casilla(true, true, false, false);//si sentencia, se pierde el turno hasta que alguien pase por el
+    private final Casilla POZO = new Casilla(true, 1, false, false, true, false);
+    //si sentencia, se pierde el turno hasta que alguien pase por el
 
     //casilla laberinto
-    private final Casilla LABERINTO = new Casilla(true, true, false, false);//si sentencia, se pierde el turno y retrocede x casillas
+    private final Casilla LABERINTO = new Casilla(true, 1, false, true, false, false);
+    //si sentencia, se pierde el turno y retrocede x casillas
 
     //casilla carcel
-    private final Casilla CARCEL = new Casilla(true, true, false, false);//si sentencia, pierde 3 turnos
+    private final Casilla CARCEL = new Casilla(true, 3, false, false, false, false);
+    //si sentencia, pierde 3 turnos
 
     //caslla dados
-    private final Casilla DADOS = new Casilla(true, true, false, false);//si sentencia
+    private final Casilla DADOS = new Casilla(true, 1, false, true, false, false);
+    //si sentencia(cual, ya se vera)
 
     //casilla calavera
-    private final Casilla CALAVERA = new Casilla(true, true, false, false);//si sentencia, se vuelve al inicio
+    private final Casilla CALAVERA = new Casilla(true, 1, false, true, false, false);
+    //si sentencia, se vuelve al inicio
 
     //casilla final
-    private final Casilla FINAL = new Casilla(true, true, false, true);//si sentencia, acaba el tableroDePrueba
+    private final Casilla FINAL = new Casilla(true, 1, false, false, false, true);
+    //si sentencia, acaba el tableroDePrueba
 
     //vamos a crear el tablero por defecto, ya que va a haber un solo tablero
     public Tablero() {
@@ -103,7 +111,129 @@ public class Tablero {
         //el tablero esta formado de 63 casillas, para representar eso,
         //crearemos un array de 63 posiciones
         this.casilla = new Casilla[64];
+    }
 
+    //getter de casilla, dependiendo del numero que recibas
+    public Casilla getCasilla(int i) {
+        
+        Tablero tablero = new Tablero();
+        tablero.llenarTablero();
+
+        if (i == 0 || i == 5 || i == 6 || i == 9 || i == 12 || i == 14
+                || i == 18 || i == 19 || i == 23 || i == 26 || i == 27
+                || i == 31 || i == 32 || i == 36 || i == 41 || i == 42
+                || i == 45 || i == 50 || i == 52 || i == 53 || i == 54
+                || i == 58 || i == 59 || i == 63) {
+
+            switch (i) {
+                case 5:
+                case 9:
+                case 14:
+                case 18:
+                case 23:
+                case 27:
+                case 32:
+                case 36:
+                case 41:
+                case 45:
+                case 50:
+                case 54:
+                case 59:
+                    this.casilla[i] = OCA;
+                    break;
+                case 6:
+                case 12:
+                    this.casilla[i] = PUENTE;
+                    break;
+                case 19:
+                    this.casilla[i] = POSADA;
+                    break;
+                case 31:
+                    this.casilla[i] = POZO;
+                    break;
+                case 42:
+                    this.casilla[i] = LABERINTO;
+                    break;
+                case 26:
+                case 53:
+                    this.casilla[i] = DADOS;
+                    break;
+                case 52:
+                    this.casilla[i] = CARCEL;
+                    break;
+                case 58:
+                    this.casilla[i] = CALAVERA;
+                    break;
+                case 63:
+                    this.casilla[i] = FINAL;
+                    break;
+            }
+        } else {
+
+            this.casilla[i] = NORMAL;
+        }
+        return casilla[i];
+    }
+
+    public Casilla getNombreCasilla(int i) {
+        
+        Tablero tablero = new Tablero();
+        tablero.llenarTablero();
+
+        if (i == 0 || i == 5 || i == 6 || i == 9 || i == 12 || i == 14
+                || i == 18 || i == 19 || i == 23 || i == 26 || i == 27
+                || i == 31 || i == 32 || i == 36 || i == 41 || i == 42
+                || i == 45 || i == 50 || i == 52 || i == 53 || i == 54
+                || i == 58 || i == 59 || i == 63) {
+
+            switch (i) {
+                case 5:
+                case 9:
+                case 14:
+                case 18:
+                case 23:
+                case 27:
+                case 32:
+                case 36:
+                case 41:
+                case 45:
+                case 50:
+                case 54:
+                case 59:
+                    this.nombreCasilla[i] = "Oca";
+                    break;
+                case 6:
+                case 12:
+                    this.nombreCasilla[i] = "Puente";
+                    break;
+                case 19:
+                    this.nombreCasilla[i] = "Posada";
+                    break;
+                case 31:
+                    this.nombreCasilla[i] = "Pozo";
+                    break;
+                case 42:
+                    this.nombreCasilla[i] = "Laberinto";
+                    break;
+                case 26:
+                case 53:
+                    this.nombreCasilla[i] = "Dados";
+                    break;
+                case 52:
+                    this.nombreCasilla[i] = "Carcel";
+                    break;
+                case 58:
+                    this.nombreCasilla[i] = "Calavera";
+                    break;
+                case 63:
+                    this.nombreCasilla[i] = "Final";
+                    break;
+            }
+        } else {
+
+            this.nombreCasilla[i] = "Normal";
+        }
+        return casilla[i];
     }
 
     //vamosa a crear un metodo para ver como estaran las casillas, es decir,
@@ -130,6 +260,9 @@ public class Tablero {
                     || i == 58 || i == 59 || i == 63) {
 
                 switch (i) {
+                    case 0:
+                        this.casilla[i] = INICIO;
+                        break;
                     case 5:
                     case 9:
                     case 14:
