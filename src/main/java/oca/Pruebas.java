@@ -5,25 +5,15 @@
  */
 package oca;
 
+import static oca.Juego.tablero;
+
 /**
  *
  * @author aleja
  */
 public class Pruebas {
     public static void main(String[] args) {
-        boolean repetir = true;
-        int numero = 0;
+        System.out.println(tablero.getCasilla(tablero.getCasillas() - 1).getId());
         
-        do{
-            
-            System.out.println(numero + "-");
-            
-            if (numero==4){
-                repetir = false;
-                
-            }
-            
-            numero++;
-        }while(repetir);
     }
 }
