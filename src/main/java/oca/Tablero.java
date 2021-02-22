@@ -78,7 +78,7 @@ public class Tablero {
     //Si sentencia, se va a la posada y se pierde el turno
 
     //casilla posada
-    private final Casilla POSADA = new Casilla(true, 1, false, false, false, false);
+    private final Casilla POSADA = new Casilla(true, 2, false, false, false, false);
     //si sentencia, se pierde el turno
 
     //casilla pozo
@@ -380,7 +380,7 @@ public class Tablero {
 
         }
     }
-
+    
     public static void main(String[] args) {
 
         //creamos el tablero

@@ -11,23 +11,24 @@ import java.util.Random;
  */
 class Jugador {
 
-    private final String NOMBRE;
-    private final String APODO;
+    private String nombre;
+    private char apodo;
     private int posicion;//no se si realmente es int, posible cambio
+    private int tiradaInicial;
+
+    //vamosa a tener que crear un objeto de tipo random
+    static Random random = new Random();
 
     //Un jugador siempre va a ser parametrizado, ya que vamos a tener que 
     //introducir nuestros datos
-    public Jugador(String nombre, String apodo) {
-        this.NOMBRE = nombre;
-        this.APODO = apodo;
+    public Jugador(String nombre, char apodo) {
+        this.nombre = nombre;
+        this.apodo = apodo;
         this.posicion = 0;
+        this.tiradaInicial = 0;
     }
 
     public int tirarDados() {
-
-        //vamosa a tener que crear un objeto de tipo random
-        Random random = new Random();
-
         //en el juego real, se tirar un dado de forma que el numero que sale es
         //de forma aleatoria el numero que sale
         return random.nextInt(7);//devuelve un numero entre 0-6
@@ -37,13 +38,26 @@ class Jugador {
 
         this.posicion += movimiento;
     }
+    
+    public void retroceder(int movimiento) {
+
+        this.posicion -= movimiento;
+    }
 
     public int getPosicion() {
         return posicion;
     }
-    
+
+    public int getTiradaInicial() {
+        return tiradaInicial;
+    }
+
+    public void setTiradaInicial(int tiradaInicial) {
+        this.tiradaInicial = tiradaInicial;
+    }
+
     @Override
     public String toString() {
-        return "Jugador{" + "nombre = " + NOMBRE + ", apodo = " + APODO + ", posicion = " + posicion + '}';
+        return apodo + ", posicion: " + posicion;
     }
 }

@@ -15,6 +15,7 @@ public class Pruebas {
         int numero = 0;
         
         do{
+            
             System.out.println(numero + "-");
             
             if (numero==4){
