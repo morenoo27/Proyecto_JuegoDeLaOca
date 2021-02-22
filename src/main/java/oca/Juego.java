@@ -42,19 +42,30 @@ public class Juego {
 
     public static void main(String[] args) {
 
-        iniciarTablero();
-
         /**
          * Vamos a crear una lista variable para asi poder meter a la cantidad
          * de jugadores que nosotros queramos. Aunque normalmente el juego esta
-         * pensado para 4 jugaores, po temas de testeo lo podremos hacer incluso
-         * para ua persona solo
+         * pensado para 4 jugaores, por temas de testeo lo podremos hacer incluso
+         * para una persona solo
          */
         ArrayList<Jugador> jugadores = jugadores();
 
         decidirOrden(jugadores);
 
         mostrarJugadores(jugadores);
+        
+        boolean fin = true;
+        
+        
+        do{
+            
+            for (int i = 0; i < jugadores.size(); i++) {
+                
+                jugadores.get(i).jugarTruno();
+            }
+            
+            tablero.mostrarTablero();
+        }while(fin);
     }
 
     /**
@@ -70,12 +81,6 @@ public class Juego {
 
             System.out.println(jugadores.get(i).toString());
         }
-    }
-
-    public static void iniciarTablero() {
-
-        tablero.llenarTablero();
-        tablero.nombrarTablero();
     }
 
     /**
