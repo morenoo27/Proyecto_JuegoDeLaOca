@@ -11,56 +11,51 @@ package oca;
  */
 public enum TiposDeCasillas {
 
-    OCA (true, 0, true, true, false, false),
-    PUENTE (true, 1, false, true, false, false),
-    POSADA (true, 1, false, false, false, false),
-    POZO (true, 1, false, false, true, false),
-    LABERINTO (true, 1, false, true, false, false),
-    CARCEL (true, 3, false, false, false, false),
-    DADOS (true, 1, false, true, false, false),
-    CALAVERA (true, 1, false, true, false, false),
-    FINAL (true, 1, false, false, false, true);
+    NORMAL("Normal", 0, 0, false, false),
+    OCA4("Oca 4", 0, 4, true, true),
+    OCA5("Oca 5", 0, 5, true, true),
+    PUENTE6("Puente", 0, 13, false, true),
+    PUENTE12("Puente", 0, 7, false, true),
+    POSADA("Posada", 1, 0, false, true),
+    POZO("Pozo negro", 100, 0, false, true),
+    LABERINTO("Laberinto", 0, -12, false, true),
+    CARCEL("Cárcel", 2, 0, false, true),
+    DADOS26("Dados 26", 0, 26, false, true),
+    DADOS53("Dados 53", 0, 53, false, true),
+    CALAVERA("Calavera", 0, -57, false, true),
+    JARDIN_OCA("Jardín", 0, 0, false, true);
 
-    private boolean SENTENCIA; //para si la casilla teniene una accion o no
-    private int PIERDETURNO;//true pierde turno
-    private boolean VUELVEATIRAR;//true vuelve a tirar
-    private boolean SALTODECASILLA;//true hay salto, false, no
-    private boolean DEPENDEDEJUGADOR;
-    private boolean FINALDELJUEGO;
-    
-    
+    private final String tipo; // Oca, Puente, etc
+    private final int turnosSinJugar; // Número de turnos sin jugar
+    private final int siguienteMovimiento; // 0 no hago nada, +3 avanza 3
+    private final boolean tiradaExtra; // Si se cae en esta casilla se tira otra vez
+    private final boolean sentencia;
 
-    private TiposDeCasillas(boolean sentencia, int perdeTurno, boolean vuelveATirar, boolean saltoDeCasilla, boolean dependeDeJugador, boolean finalDelJuego) {
-
-        this.SENTENCIA = sentencia;
-        this.PIERDETURNO = perdeTurno;
-        this.VUELVEATIRAR = vuelveATirar;
-        this.SALTODECASILLA = saltoDeCasilla;
-        this.DEPENDEDEJUGADOR = dependeDeJugador;
-        this.FINALDELJUEGO = finalDelJuego;
-    }
-    
-    public boolean isSENTENCIA() {
-        return SENTENCIA;
+    private TiposDeCasillas(String tipo, int turnosSinJugar, int siguienteMovimiento, boolean tiradaExtra, boolean sentencia) {
+        this.tipo = tipo;
+        this.turnosSinJugar = turnosSinJugar;
+        this.siguienteMovimiento = siguienteMovimiento;
+        this.tiradaExtra = tiradaExtra;
+        this.sentencia = sentencia;
     }
 
-    public int getPIERDETURNO() {
-        return PIERDETURNO;
+    public String getTipo() {
+        return tipo;
     }
 
-    public boolean isVUELVEATIRAR() {
-        return VUELVEATIRAR;
+    public int getTurnosSinJugar() {
+        return turnosSinJugar;
     }
 
-    public boolean isSALTODECASILLA() {
-        return SALTODECASILLA;
+    public int getSiguienteMovimiento() {
+        return siguienteMovimiento;
     }
 
-    public boolean isDEPENDEDEJUGADOR() {
-        return DEPENDEDEJUGADOR;
+    public boolean isTiradaExtra() {
+        return tiradaExtra;
     }
 
-    public boolean isFINALDELJUEGO() {
-        return FINALDELJUEGO;
+    public boolean isSentencia() {
+        return sentencia;
     }
 }
