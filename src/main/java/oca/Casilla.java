@@ -43,34 +43,34 @@ final class Casilla {
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
-    
-    public void addJugador(Jugador jugador){
-        
+
+    public void addJugador(Jugador jugador) {
+
         this.jugadores.add(jugador);
     }
-    
-    public void removeJugador(Jugador jugador){
-        
+
+    public void removeJugador(Jugador jugador) {
+
         this.jugadores.remove(jugador);
     }
 
     @Override
     public String toString() {
-        return id + "\t" + tipoDeCasilla + "\t" + mostraJugadores();
+        return "| " + id + mostraJugadores() + " |";
     }
 
     private String mostraJugadores() {
 
         String tmp = "|";
-        
-        if(!this.jugadores.isEmpty()){
-            
+
+        if (!this.jugadores.isEmpty()) {
+
             for (int i = 0; i < jugadores.size(); i++) {
-                
+
                 tmp += " " + this.jugadores.get(i).getApodo();
             }
         }
-        
+
         tmp += " |";
         return tmp;
     }
