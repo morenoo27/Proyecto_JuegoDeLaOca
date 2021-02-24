@@ -28,6 +28,7 @@ package oca;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,33 +40,43 @@ public class Juego {
     static Scanner teclado = new Scanner(System.in);
 
     static Tablero tablero = new Tablero();//vamos a tener siempre el mismo tablero
+    
+    static ArrayList<Jugador> jugadores = new ArrayList<>();
 
     public static void main(String[] args) {
 
         /**
          * Vamos a crear una lista variable para asi poder meter a la cantidad
          * de jugadores que nosotros queramos. Aunque normalmente el juego esta
-         * pensado para 4 jugaores, por temas de testeo lo podremos hacer incluso
-         * para una persona solo
+         * pensado para 4 jugaores, por temas de testeo lo podremos hacer
+         * incluso para una persona solo
          */
-        ArrayList<Jugador> jugadores = jugadores();
+        jugadores = jugadores();
 
         decidirOrden(jugadores);
 
         mostrarJugadores(jugadores);
-        
+
         boolean fin = true;
-        
-        
-        do{
-            
+        int t = 1;
+
+        do {
+
             for (int i = 0; i < jugadores.size(); i++) {
-                
+
                 jugadores.get(i).jugarTruno();
             }
             
-            tablero.mostrarTablero();
-        }while(fin);
+            JOptionPane.showMessageDialog(null, tablero, "hola", 4);
+
+            for (int i = 0; i < jugadores.size(); i++) {
+
+                if (jugadores.get(i).getPosicion() == tablero.getCasillas() - 1) {
+                    fin = jugadores.get(i).ganarPartida();
+                }
+            }
+            
+        } while (fin);
     }
 
     /**
@@ -127,18 +138,9 @@ public class Juego {
          */
         for (int i = 0; i < jugadores.size(); i++) {
 
-            int player = i + 1;
-
-            System.out.println("Jugador " + player + ",\n"
-                    + "Pulse ENTER para tirar");
-            String enter = teclado.nextLine();
-
             int tirada = jugadores.get(i).tirarDados();
-
-            System.out.println("Has sacado un " + tirada);
-            System.out.println("");//saltamos de linea(tema visual)
-
             jugadores.get(i).setTiradaInicial(tirada);
+            tablero.getCasilla(0).addJugador(jugadores.get(i));
         }
 
         Collections.sort(jugadores, (j1, j2) -> (int) (j1.getTiradaInicial() - j2.getTiradaInicial()));
