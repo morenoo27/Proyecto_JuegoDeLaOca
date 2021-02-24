@@ -4,6 +4,7 @@
 package oca;
 
 import java.util.Random;
+import java.util.Scanner;
 import static oca.Juego.tablero;
 
 /**
@@ -20,6 +21,7 @@ class Jugador {
 
     //vamosa a tener que crear un objeto de tipo random
     static Random random = new Random();
+    static Scanner tec = new Scanner(System.in);
 
     //Un jugador siempre va a ser parametrizado, ya que vamos a tener que 
     //introducir nuestros datos
@@ -32,9 +34,20 @@ class Jugador {
     }
 
     public int tirarDados() {
-        //en el juego real, se tirar un dado de forma que el numero que sale es
-        //de forma aleatoria el numero que sale
-        return random.nextInt(7);//devuelve un numero entre 0-6
+        /**
+         * en el juego real, se tirar un dado de forma que el numero que sale es
+         * de forma aleatoria el numero que sale
+         */
+
+        System.out.println(this.nombre + ",\n"
+                + "Pulse ENTER para tirar");
+        tec.nextLine();
+        int tirada = random.nextInt(6) + 1;//genera un num entre 1 y 6
+
+        System.out.println("Has sacado un " + tirada);
+        System.out.println("");//saltamos de linea(tema visual)
+
+        return tirada;//devuelve un numero entre 1-6
     }
 
     public void jugarTruno() {
@@ -71,34 +84,9 @@ class Jugador {
             //ahora recibimos la casilla en la que caemos y comprobamos si
             //tiene sentencia o es una casilla normal y que pase al siguiente jugador
             Casilla caida = tablero.getCasilla(this.posicion);
-
-            if (caida.getTipoDeCasilla().isSentencia()) {
-
-                //miramos si tenemos que movernos
-                if (caida.getTipoDeCasilla().getSiguienteMovimiento() != 0) {
-
-                    if (caida.getTipoDeCasilla().getSiguienteMovimiento() == -12) {
-                        System.out.println("Has caido en el laberinto..."
-                                + "\nEstas mas perdio que el barco del arro hulio");
-                        this.retroceder(12);
-                    } else {
-                        this.moverse(caida.getTipoDeCasilla().getSiguienteMovimiento());
-                    }
-                }
-
-                //ahora miramos si perdemos turnos
-                if (caida.getTipoDeCasilla().getTurnosSinJugar() != 0) {
-                    this.setTurnosSinJugar(caida.getTipoDeCasilla().getTurnosSinJugar());
-                }
-                
-                //ahora miramos si tiramos de nuevo
-                tiraDeNuevo = caida.getTipoDeCasilla().isTiradaExtra();
-                
-            } else {
-                System.out.println("Has caido en una casilla normal");
-            }
-            
             caida.addJugador(this);
+
+            mensajeDeCasilla(caida);
         } while (tiraDeNuevo);
     }
 
@@ -110,6 +98,15 @@ class Jugador {
     public void retroceder(int movimiento) {
 
         this.posicion -= movimiento;
+    }
+
+    public boolean ganarPartida() {
+
+        System.out.println("Felicidades " + this.nombre + ",\n"
+                + "¡Has llegado primero al Jardin!\n"
+                + "¡¡Winner Winner Chicken Dinner!!");
+
+        return false;
     }
 
     public int getPosicion() {
@@ -150,11 +147,32 @@ class Jugador {
 
     @Override
     public String toString() {
-        return apodo + ", posicion: " + posicion;
+        return nombre + ", posicion: " + posicion;
     }
 
     private boolean sePasa(int tirada, Casilla actual) {
 
         return actual.getId() + tirada > tablero.getCasillas() - 1;
+    }
+
+    private void mensajeDeCasilla(Casilla caida) {
+
+        System.out.println("Has caido en una casilla de tipo " + caida.getTipoDeCasilla().getTipo());
+        if (caida.getTipoDeCasilla().getTipo().contains("oca")) {
+            System.out.println("¡¡De oca en oca y tiro por que me toca!!");
+        } else if (caida.getTipoDeCasilla().getTipo().contains("puente")) {
+            System.out.println("¡Te has caido del puente!");
+        } else if (caida.getTipoDeCasilla().getTipo().contains("posada")) {
+            System.out.println("a mimir...");
+        } else if (caida.getTipoDeCasilla().getTipo().contains("laberinto")) {
+            System.out.println("Estas mas perdio que el barco del arroz hulio");
+        } else if (caida.getTipoDeCasilla().getTipo().contains("dado")) {
+            System.out.println("¡¡DE dado a dado y tiro porque me ha tocado!!");
+        } else if (caida.getTipoDeCasilla().getTipo().contains("pozo")) {
+            System.out.println("EL pozitoooooo");
+        } else if (caida.getTipoDeCasilla().getTipo().contains("calavera")) {
+            
+            System.out.println("VEnga, a llorar al parque");
+        }
     }
 }
