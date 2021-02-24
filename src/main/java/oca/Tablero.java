@@ -54,6 +54,11 @@ Las dimensiones de un tablero de la oca son de la siguiente manera:
  */
 package oca;
 
+import javax.swing.JOptionPane;
+import static oca.Juego.jugadores;
+import static oca.Pruebas.tablero;
+
+
 /*
  * @author aleja
  */
@@ -61,6 +66,16 @@ public class Tablero {
 
     private Casilla[] casilla;
     private String[] nombreCasilla = new String[64];
+
+    static String tablero1 = "         |25|   |24|   |23|   |22|   |21|   |20|   |19|   |18|";
+    static String tablero2 = "    |26|        |49|   |48|   |47|   |46|   |45|   |44|        |17|";
+    static String tablero3 = "    |27|   |50|     _________                           |43|   |16|";
+    static String tablero4 = "    |28|   |51|    |                  |                          |42|   |15|";
+    static String tablero5 = "    |29|   |52|    |     63    |62|  |61|   |60|          |41|   |14|";
+    static String tablero6 = "    |30|   |53|    |_________|          |59|          |40|   |13|";
+    static String tablero7 = "    |31|        |54|   |55|   |56|   |57|   |58|          |39|   |12|";
+    static String tablero8 = "           |32|   |33|   |34|   |35|   |36|   |37|   |38|        |11|";
+    static String tablero9 = "|1|   | 2|   | 3|   | 4|   | 5|   | 6|   | 7|   | 8|   | 9|   |10|";
 
     //vamos a crear el tablero por defecto, ya que va a haber un solo tablero
     public Tablero() {
@@ -70,8 +85,8 @@ public class Tablero {
         this.casilla = new Casilla[64];
         llenarTablero();
     }
-    
-    public int getCasillas(){
+
+    public int getCasillas() {
         return casilla.length;
     }
 
@@ -86,14 +101,16 @@ public class Tablero {
         return this.nombreCasilla[i];
     }
 
-    //vamosa a crear un metodo para ver como estaran las casillas, es decir,
-    //para saber si esta todo correctamente implementado
-    public void mostrarTablero() {
+    @Override
+    public String toString() {
 
-        //creamos un for que recorra cada posicion del tablero
-        for (int i = 0; i < casilla.length; i++) {
-            System.out.println(this.casilla[i]);
+        String tablero = tablero1 + "\n" + tablero2 + "\n" + tablero3 + "\n" + tablero4 + "\n" + tablero5 + "\n" + tablero6 + "\n" + tablero7 + "\n" + tablero8 + "\n" + tablero9 + "\n";
+
+        for (int i = 0; i < jugadores.size(); i++) {
+        
+            tablero += "Jugador " + jugadores.get(i).toString() + "\n";
         }
+        return tablero;
     }
 
 //    Al hacer la prueba, vemos que todo apunta a null, por tanto vamos a rellenar
@@ -163,5 +180,9 @@ public class Tablero {
                 this.casilla[i] = new Casilla(i, TiposDeCasillas.NORMAL);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        JOptionPane.showMessageDialog(null, tablero, "Turno", 0);
     }
 }
