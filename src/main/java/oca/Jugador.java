@@ -50,7 +50,7 @@ class Jugador {
         return tirada;//devuelve un numero entre 1-6
     }
 
-    public void jugarTruno() {
+    public void jugarTurno() {
 
         boolean tiraDeNuevo = false;
 
@@ -84,9 +84,7 @@ class Jugador {
             //ahora recibimos la casilla en la que caemos y comprobamos si
             //tiene sentencia o es una casilla normal y que pase al siguiente jugador
             Casilla caida = tablero.getCasilla(this.posicion);
-            caida.addJugador(this);
-
-            mensajeDeCasilla(caida);
+            
         } while (tiraDeNuevo);
     }
 
