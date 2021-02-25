@@ -62,13 +62,15 @@ public class Juego {
 
         do {
 
+            String turno = "Turno " + t;
+            
             for (int i = 0; i < jugadores.size(); i++) {
 
-                jugadores.get(i).jugarTruno();
+                jugadores.get(i).jugarTurno();
+                
+                JOptionPane.showMessageDialog(null, tablero, turno, 3);
             }
             
-            JOptionPane.showMessageDialog(null, tablero, "hola", 4);
-
             for (int i = 0; i < jugadores.size(); i++) {
 
                 if (jugadores.get(i).getPosicion() == tablero.getCasillas() - 1) {
