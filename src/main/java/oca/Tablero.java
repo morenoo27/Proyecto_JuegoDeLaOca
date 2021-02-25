@@ -54,9 +54,10 @@ Las dimensiones de un tablero de la oca son de la siguiente manera:
  */
 package oca;
 
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import static oca.Juego.jugadores;
-import static oca.Pruebas.tablero;
 
 
 /*
@@ -67,15 +68,21 @@ public class Tablero {
     private Casilla[] casilla;
     private String[] nombreCasilla = new String[64];
 
-    static String tablero1 = "         |25|   |24|   |23|   |22|   |21|   |20|   |19|   |18|";
-    static String tablero2 = "    |26|        |49|   |48|   |47|   |46|   |45|   |44|        |17|";
-    static String tablero3 = "    |27|   |50|     _________                           |43|   |16|";
-    static String tablero4 = "    |28|   |51|    |                  |                          |42|   |15|";
-    static String tablero5 = "    |29|   |52|    |     63    |62|  |61|   |60|          |41|   |14|";
-    static String tablero6 = "    |30|   |53|    |_________|          |59|          |40|   |13|";
-    static String tablero7 = "    |31|        |54|   |55|   |56|   |57|   |58|          |39|   |12|";
-    static String tablero8 = "           |32|   |33|   |34|   |35|   |36|   |37|   |38|        |11|";
-    static String tablero9 = "|1|   | 2|   | 3|   | 4|   | 5|   | 6|   | 7|   | 8|   | 9|   |10|";
+    private static JLabel tablero = new JLabel("<html>"
+            + "    <pre>"
+            + "             |25| |24| |23| |22| |21| |20| |19| |18|\n"
+            + "        |26|      |49| |48| |47| |46| |45| |44|      |17|\n"
+            + "        |27| |50|         ________              |43| |16|\n"
+            + "        |28| |51|        |        |             |42| |15|\n"
+            + "        |29| |52|        |   63  |62| |61| |60| |41| |14|\n"
+            + "        |30| |53|        |________|      |59|   |40| |13|\n"
+            + "        |31|      |54| |55| |56| |57| |58|      |39| |12|\n"
+            + "             |32| |33| |34| |35| |36| |37| |38|      |11|\n"
+            + "   | 1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|"
+            + "    </pre>"
+            + "</html>");
+
+    private static final ImageIcon ICONO = new ImageIcon("src/main/fotos/patata2.jpg");
 
     //vamos a crear el tablero por defecto, ya que va a haber un solo tablero
     public Tablero() {
@@ -100,17 +107,9 @@ public class Tablero {
 
         return this.nombreCasilla[i];
     }
-
-    @Override
-    public String toString() {
-
-        String tablero = tablero1 + "\n" + tablero2 + "\n" + tablero3 + "\n" + tablero4 + "\n" + tablero5 + "\n" + tablero6 + "\n" + tablero7 + "\n" + tablero8 + "\n" + tablero9 + "\n";
-
-        for (int i = 0; i < jugadores.size(); i++) {
-        
-            tablero += "Jugador " + jugadores.get(i).toString() + "\n";
-        }
-        return tablero;
+    
+    private static String mostrarJugadores(ArrayList<Jugador> jugadores) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 //    Al hacer la prueba, vemos que todo apunta a null, por tanto vamos a rellenar
@@ -180,9 +179,5 @@ public class Tablero {
                 this.casilla[i] = new Casilla(i, TiposDeCasillas.NORMAL);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        JOptionPane.showMessageDialog(null, tablero, "Turno", 0);
     }
 }
