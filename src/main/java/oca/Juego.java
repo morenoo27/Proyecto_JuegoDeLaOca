@@ -27,7 +27,10 @@ package oca;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,8 +43,29 @@ public class Juego {
     static Scanner teclado = new Scanner(System.in);
 
     static Tablero tablero = new Tablero();//vamos a tener siempre el mismo tablero
-    
-    static ArrayList<Jugador> jugadores = new ArrayList<>();
+
+    static final ArrayList<Jugador> jugadores = new ArrayList<>();
+    /**
+     * El mapa es una ilustacion de lo que se mostrara en la plantalla del
+     * JOption, ademas tambien le añadiremos los jugadores y sus respectivas
+     * posiciones
+     */
+    private static final JLabel mapa = new JLabel("<html>"
+            + "    <pre>"
+            + "             |25| |24| |23| |22| |21| |20| |19| |18|\n"
+            + "          |26|    |49| |48| |47| |46| |45| |44|    |17|\n"
+            + "        |27|   |50|       ________            |43|   |16|\n"
+            + "        |28| |51|        |         |62| |61|    |42| |15|\n"
+            + "        |29| |52|        |   63   |        |60| |41| |14|\n"
+            + "        |30|   |53|      |________|      |59|   |40| |13|\n"
+            + "          |31|    |54| |55| |56| |57| |58|    |39|   |12|\n"
+            + "             |32| |33| |34| |35| |36| |37| |38|    |11|\n"
+            + "   | 1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|\n"
+            + "    </pre>"
+            + mostrarJugadores(jugadores)
+            + "</html>");
+
+    private static final ImageIcon ICONO = new ImageIcon("src/main/fotos/oca.jpg");
 
     public static void main(String[] args) {
 
@@ -51,11 +75,31 @@ public class Juego {
          * pensado para 4 jugaores, por temas de testeo lo podremos hacer
          * incluso para una persona solo
          */
-        jugadores = jugadores();
+        String[] opciones = {"2", "3", "4"};
+        
+        String numero;
+        
+        numero = String.valueOf(JOptionPane.showInputDialog(null, "¿Cuantos jugadores?", "INICIO", 0, ICONO, opciones, 1));
+        
+        int players = Integer.parseInt(numero);
+        
+        for (int i = 0; i < players; i++) {
+
+            int pos = i + 1;
+            
+            String nombre = JOptionPane.showInputDialog(null, "Jugador " + pos
+                    + "\nIntroduzca su nombre:", "Jugador", JOptionPane.INFORMATION_MESSAGE);
+
+            
+            String aux = JOptionPane.showInputDialog(null, "Jugador " + pos
+                    + "\nIntroduzca su apodo:", "Jugador", JOptionPane.INFORMATION_MESSAGE);
+            char apodo = aux.charAt(0);
+
+            Jugador jugador = new Jugador(nombre, apodo);
+            jugadores.add(jugador);
+        }
 
         decidirOrden(jugadores);
-
-        mostrarJugadores(jugadores);
 
         boolean fin = true;
         int t = 1;
@@ -63,71 +107,37 @@ public class Juego {
         do {
 
             String turno = "Turno " + t;
-            
+
             for (int i = 0; i < jugadores.size(); i++) {
 
                 jugadores.get(i).jugarTurno();
-                
-                JOptionPane.showMessageDialog(null, tablero, turno, 3);
-            }
-            
-            for (int i = 0; i < jugadores.size(); i++) {
 
-                if (jugadores.get(i).getPosicion() == tablero.getCasillas() - 1) {
-                    fin = jugadores.get(i).ganarPartida();
-                }
+                JOptionPane.showMessageDialog(null, mapa, "turno", 0, ICONO);
+                
+                fin = jugadores.get(i).isWin(); 
             }
-            
+
         } while (fin);
     }
 
     /**
-     * Aqui lo que realizaremos una muerstra de toso los jugadores. Lo
+     * Aqui lo que realizaremos una muerstra de toso los jugadores.Lo
      * utilizaremos en cada turno para mostrar tanto la pociciosn de cada uno de
      * los jugadores
      *
      * @param jugadores : jugadores que hay
+     * @return texto con la info de los jugadores 
      */
-    public static void mostrarJugadores(ArrayList<Jugador> jugadores) {
+    public static String mostrarJugadores(ArrayList<Jugador> jugadores) {
 
+        String texto = "prueba<br/>";
         for (int i = 0; i < jugadores.size(); i++) {
 
-            System.out.println(jugadores.get(i).toString());
-        }
-    }
-
-    /**
-     * Aqui lo que vamos a realizar es un inicio de los jugadores que van a
-     * jugar. los almacenaos en una lita y los devolvemos para ustilizarlos
-     * posteriormente
-     *
-     * @return
-     */
-    public static ArrayList<Jugador> jugadores() {
-
-        ArrayList<Jugador> lista = new ArrayList<>();
-
-        System.out.println("¿Cuantos jugadores van a jugar?");
-        int numero = teclado.nextInt();
-
-        teclado.nextLine();//limpiamos le teclado
-
-        for (int i = 0; i < numero; i++) {
-
-            int pos = i + 1;
-            System.out.println("Jugador " + pos
-                    + "\nIntroduzca su nombre:");
-            String nombre = teclado.nextLine();
-
-            System.out.println("Introduzca su apodo:");
-            String aux = teclado.nextLine();
-            char apodo = aux.charAt(0);
-
-            Jugador jugador = new Jugador(nombre, apodo);
-            lista.add(jugador);
+            texto += jugadores.get(i).toString() + "<br/>";
         }
 
-        return lista;
+        texto += jugadores.size();
+        return texto;
     }
 
     private static void decidirOrden(ArrayList<Jugador> jugadores) {
@@ -142,7 +152,6 @@ public class Juego {
 
             int tirada = jugadores.get(i).tirarDados();
             jugadores.get(i).setTiradaInicial(tirada);
-            tablero.getCasilla(0).addJugador(jugadores.get(i));
         }
 
         Collections.sort(jugadores, (j1, j2) -> (int) (j1.getTiradaInicial() - j2.getTiradaInicial()));

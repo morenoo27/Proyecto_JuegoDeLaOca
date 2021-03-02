@@ -11,6 +11,9 @@ package oca;
  */
 public enum TiposDeCasillas {
 
+    /**
+     *
+     */
     NORMAL("Normal", 0, 0, false, false),
     OCA4("Oca 4", 0, 4, true, true),
     OCA5("Oca 5", 0, 5, true, true),
@@ -20,8 +23,7 @@ public enum TiposDeCasillas {
     POZO("Pozo negro", 100, 0, false, true),
     LABERINTO("Laberinto", 0, -12, false, true),
     CARCEL("Cárcel", 2, 0, false, true),
-    DADOS26("Dados 26", 0, 26, false, true),
-    DADOS53("Dados 53", 0, 53, false, true),
+    DADOS("Dados 26", 0, 8, false, true),
     CALAVERA("Calavera", 0, -57, false, true),
     JARDIN_OCA("Jardín", 0, 0, false, true);
 
@@ -30,6 +32,13 @@ public enum TiposDeCasillas {
     private final int siguienteMovimiento; // 0 no hago nada, +3 avanza 3
     private final boolean tiradaExtra; // Si se cae en esta casilla se tira otra vez
     private final boolean sentencia;
+    
+    
+    
+    
+    
+    
+    
 
     private TiposDeCasillas(String tipo, int turnosSinJugar, int siguienteMovimiento, boolean tiradaExtra, boolean sentencia) {
         this.tipo = tipo;

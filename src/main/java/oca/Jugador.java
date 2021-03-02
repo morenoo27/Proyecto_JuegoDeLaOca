@@ -5,6 +5,8 @@ package oca;
 
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import static oca.Juego.tablero;
 
 /**
@@ -18,10 +20,15 @@ class Jugador {
     private int posicion;//no se si realmente es int, posible cambio
     private int tiradaInicial;
     private int turnosSinJugar;
+    private boolean win;
 
     //vamosa a tener que crear un objeto de tipo random
     static Random random = new Random();
     static Scanner tec = new Scanner(System.in);
+
+    private static final ImageIcon ICONO = new ImageIcon("src/main/fotos/oca.jpg");
+    private static final ImageIcon TIRADA = new ImageIcon("src/main/fotos/altoke.jpg");
+    private static final ImageIcon ESPERA = new ImageIcon("src/main/fotos/pozo.jpg");
 
     //Un jugador siempre va a ser parametrizado, ya que vamos a tener que 
     //introducir nuestros datos
@@ -31,6 +38,7 @@ class Jugador {
         this.posicion = 0;
         this.tiradaInicial = 0;
         this.turnosSinJugar = 0;
+        this.win = false;
     }
 
     public int tirarDados() {
@@ -39,13 +47,13 @@ class Jugador {
          * de forma aleatoria el numero que sale
          */
 
-        System.out.println(this.nombre + ",\n"
-                + "Pulse ENTER para tirar");
-        tec.nextLine();
+        String mensaje = "Te toca tirar " + this.getNombre()
+                + "\n Pulsa OK para tirar";
+
+        JOptionPane.showMessageDialog(null, mensaje, "TIRADA JUGADOR", 0, ICONO);
         int tirada = random.nextInt(6) + 1;//genera un num entre 1 y 6
 
-        System.out.println("Has sacado un " + tirada);
-        System.out.println("");//saltamos de linea(tema visual)
+        JOptionPane.showMessageDialog(null, "Has sacado un " + tirada, "TIRADA JUGADOR", 0, TIRADA);
 
         return tirada;//devuelve un numero entre 1-6
     }
@@ -54,38 +62,45 @@ class Jugador {
 
         boolean tiraDeNuevo = false;
 
-        do {
-            //pillamos la posicion actual(y su casilla correspondiente)
-            int posi = this.posicion;
+        if (this.getTurnosSinJugar() != 0) {
 
-            Casilla actual = tablero.getCasilla(posi);
-            actual.removeJugador(this);
+            this.turnosSinJugar--;
+            String texto = "Tienes turnos sin jugar aun.\n"
+                    + "Te quedan " + this.getTurnosSinJugar() + " turnos sin jugar";
+            JOptionPane.showMessageDialog(null, texto, "TIRADA JUGADOR", 0, ESPERA);
 
-            int tirada = this.tirarDados();
-            if (sePasa(tirada, actual)) {
+        } else {
 
-                //calculamos cuanto hay hasta el jardin
-                int hastaJardin = tablero.getCasilla(tablero.getCasillas() - 1).getId() - actual.getId();
+            do {
 
-                //nos movemos hasta el jardin
-                this.moverse(hastaJardin);
+                Casilla actual = tablero.getCasilla(this.posicion);
 
-                //calculamos el rebote
-                int rebote = tirada - hastaJardin;
+                int tirada = this.tirarDados();
 
-                //retrocedemos la cantidad
-                this.retroceder(rebote);
+                if (sePasa(tirada, actual)) {
 
-            } else {
+                    //calculamos cuanto hay hasta el jardin
+                    int hastaJardin = tablero.getCasilla(tablero.getCasillas() - 1).getId() - actual.getId();
 
-                this.moverse(tirada);
-            }
+                    //nos movemos hasta el jardin
+                    this.moverse(hastaJardin);
 
-            //ahora recibimos la casilla en la que caemos y comprobamos si
-            //tiene sentencia o es una casilla normal y que pase al siguiente jugador
-            Casilla caida = tablero.getCasilla(this.posicion);
-            
-        } while (tiraDeNuevo);
+                    //calculamos el rebote
+                    int rebote = tirada - hastaJardin;
+
+                    //retrocedemos la cantidad
+                    this.retroceder(rebote);
+
+                } else {
+
+                    this.moverse(tirada);
+                }
+
+                tiraDeNuevo = caerEnCasilla(this.posicion);
+
+            } while (tiraDeNuevo);
+        }
+
     }
 
     public void moverse(int movimiento) {
@@ -143,9 +158,18 @@ class Jugador {
         this.apodo = apodo;
     }
 
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+    
+
     @Override
     public String toString() {
-        return nombre + ", posicion: " + posicion;
+        return nombre + ", casilla: " + posicion;
     }
 
     private boolean sePasa(int tirada, Casilla actual) {
@@ -153,24 +177,24 @@ class Jugador {
         return actual.getId() + tirada > tablero.getCasillas() - 1;
     }
 
-    private void mensajeDeCasilla(Casilla caida) {
+    private boolean caerEnCasilla(int posicion) {
 
-        System.out.println("Has caido en una casilla de tipo " + caida.getTipoDeCasilla().getTipo());
-        if (caida.getTipoDeCasilla().getTipo().contains("oca")) {
-            System.out.println("¡¡De oca en oca y tiro por que me toca!!");
-        } else if (caida.getTipoDeCasilla().getTipo().contains("puente")) {
-            System.out.println("¡Te has caido del puente!");
-        } else if (caida.getTipoDeCasilla().getTipo().contains("posada")) {
-            System.out.println("a mimir...");
-        } else if (caida.getTipoDeCasilla().getTipo().contains("laberinto")) {
-            System.out.println("Estas mas perdio que el barco del arroz hulio");
-        } else if (caida.getTipoDeCasilla().getTipo().contains("dado")) {
-            System.out.println("¡¡DE dado a dado y tiro porque me ha tocado!!");
-        } else if (caida.getTipoDeCasilla().getTipo().contains("pozo")) {
-            System.out.println("EL pozitoooooo");
-        } else if (caida.getTipoDeCasilla().getTipo().contains("calavera")) {
-            
-            System.out.println("VEnga, a llorar al parque");
-        }
+        Casilla casilla = tablero.getCasilla(posicion);
+
+        casilla.mensaje();
+
+        //vamos a almacenar las acciones de la casilla y a realizarlas
+        int turnos = casilla.getTipoDeCasilla().getTurnosSinJugar(); //no almacenamiento
+
+        this.setTurnosSinJugar(turnos);
+
+        int movimiento = casilla.getTipoDeCasilla().getSiguienteMovimiento();
+
+        this.moverse(movimiento);
+
+        //tambien vamosa a devolver si la casilla permite tirar de nuevo
+        boolean tira = casilla.getTipoDeCasilla().isTiradaExtra();
+
+        return tira;
     }
 }
