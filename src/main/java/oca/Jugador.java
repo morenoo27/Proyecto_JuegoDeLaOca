@@ -16,7 +16,6 @@ import static oca.Juego.tablero;
 class Jugador {
 
     private String nombre;
-    private char apodo;
     private int posicion;//no se si realmente es int, posible cambio
     private int tiradaInicial;
     private int turnosSinJugar;
@@ -32,9 +31,8 @@ class Jugador {
 
     //Un jugador siempre va a ser parametrizado, ya que vamos a tener que 
     //introducir nuestros datos
-    public Jugador(String nombre, char apodo) {
+    public Jugador(String nombre) {
         this.nombre = nombre;
-        this.apodo = apodo;
         this.posicion = 0;
         this.tiradaInicial = 0;
         this.turnosSinJugar = 0;
@@ -148,14 +146,6 @@ class Jugador {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public char getApodo() {
-        return apodo;
-    }
-
-    public void setApodo(char apodo) {
-        this.apodo = apodo;
     }
 
     public boolean isWin() {

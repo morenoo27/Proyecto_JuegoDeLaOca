@@ -90,12 +90,7 @@ public class Juego {
             String nombre = JOptionPane.showInputDialog(null, "Jugador " + pos
                     + "\nIntroduzca su nombre:", "Jugador", JOptionPane.INFORMATION_MESSAGE);
 
-            
-            String aux = JOptionPane.showInputDialog(null, "Jugador " + pos
-                    + "\nIntroduzca su apodo:", "Jugador", JOptionPane.INFORMATION_MESSAGE);
-            char apodo = aux.charAt(0);
-
-            Jugador jugador = new Jugador(nombre, apodo);
+            Jugador jugador = new Jugador(nombre);
             jugadores.add(jugador);
         }
 
