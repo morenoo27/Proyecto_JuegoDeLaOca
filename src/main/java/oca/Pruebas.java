@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * pruebas, nada que objetar
  */
 package oca;
 
@@ -101,14 +99,13 @@ public class Pruebas {
 
     public static String mostrarJugadores(ArrayList<Jugador> jugadores) {
 
-        String texto = "prueba<br/>";
+        String texto = "Jugadores:<br/>";
 
         for (int i = 0; i < jugadores.size(); i++) {
 
             texto += jugadores.get(i).toString() + "<br/>";
         }
 
-        texto += jugadores.size();
         return texto;
     }
 }

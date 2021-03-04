@@ -35,6 +35,9 @@ final class Casilla {
         this.tipoDeCasilla = casilla;        
     }
 
+    //GETTERS & SETTERS
+    
+    
     public int getId() {
         return id;
     }
@@ -51,6 +54,8 @@ final class Casilla {
         this.tipoDeCasilla = casilla;
     }
     
+    //METODO PARA MOSTRAR EL MENSAJE DE LA CASILLA
+    
     public void mensaje(){
         
         String titulo = "";
@@ -62,20 +67,65 @@ final class Casilla {
             case OCA4:
                 
                 titulo = "¡¡Has caido en una casilla OCA!!";
-                mensaje = "¡De oca en oca y tiro por que me toca!";
+                mensaje = "¡De oca en oca y tiro por que me toca!\n";
+                
+                switch(this.getId()){
+                    case 5:
+                        mensaje += "Saltas a la casilla 9";
+                        break;
+                    case 9:
+                        mensaje += "Saltas a la casilla 14";
+                        break;
+                    case 14:
+                        mensaje += "Saltas a la casilla 18";
+                        break;
+                    case 18:
+                        mensaje += "Saltas a la casilla 23";
+                        break;
+                    case 23:
+                        mensaje += "Saltas a la casilla 27";
+                        break;
+                    case 27:
+                        mensaje += "Saltas a la casilla 32";
+                        break;
+                    case 32:
+                        mensaje += "Saltas a la casilla 36";
+                        break;
+                    case 36:
+                        mensaje += "Saltas a la casilla 41";
+                        break;
+                    case 41:
+                        mensaje += "Saltas a la casilla 45";
+                        break;
+                    case 45:
+                        mensaje += "Saltas a la casilla 50";
+                        break;
+                    case 50:
+                        mensaje += "Saltas a la casilla 54";
+                        break;
+                    case 54:
+                        mensaje += "Saltas a la casilla 59";
+                        break;
+                    case 59:
+                        mensaje += "¡Saltas al Jardin!";
+                        break;
+                }
+                
                 ICONO = imagenOca;
                 break;
             case PUENTE6:
             case PUENTE12:
                 
                 titulo = "¡Te has caido del puente!";
-                mensaje = "Help me glu glu glu im under the water";
+                mensaje = "Oh no te ahs caido del puente y\n"
+                        + "has llegado a parar en la posada...\n"
+                        + "Pierdes un turno";
                 ICONO = imagenPuente;
                 break;
             case POSADA:
                 
                 titulo = "Has llegado a la posada";
-                mensaje = "Has acabado en la posada\n"
+                mensaje = "Has acabado en la posada, pierdes un turno\n"
                         + "A mimir...";
                 ICONO = imagenPosada;
                 break;
@@ -88,13 +138,13 @@ final class Casilla {
             case DADOS:
                 
                 titulo = "¡¡DADOS!!";
-                mensaje = "¡Pues sumate esta!";
+                mensaje = "¡Te sumas 8!";
                 ICONO = imagenDados;
                 break;
             case CARCEL:
                 
                 titulo = "Has caido en la carcel...";
-                mensaje = "Por robar mi corazoncito bb te amo";
+                mensaje = "3 turnos en la carcel";
                 ICONO = imagenCarcel;
                 break;
             case CALAVERA:
@@ -125,9 +175,11 @@ final class Casilla {
                 break;
         }
         
+        //montamos el mensaje
         JOptionPane.showMessageDialog(null, mensaje, titulo, 0, ICONO);
     }
 
+    //TO STRING (aunque para nuestra ejecucion no hace falta)
     @Override
     public String toString() {
         return "[ " + id + "\t | " + this.getTipoDeCasilla()+ "\t]";

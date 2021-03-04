@@ -1,34 +1,5 @@
 /*
-    Para esta clase vamos a tener las siguientes sentencias, ya que tenemos
-diferentes tipos de casillas:
-    
-    ·Oca: Casillas 5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 y 59. 
-The mitical "De oca a oca y tiro porque me toca"
-    ·Puente: Casilla 6 y 12.
-Se va a la posada.
-    ·Posada: Casilla 19.
-Si se cae en esta casilla se pierde un turno.
-    ·Pozo: Casilla 31.
-Si se cae en esta casilla, NO se puede volver a jugar hasta que no pase otro 
-jugador por esa casilla.
-    ·Laberinto: Casilla 42. 
-Si se cae en esta casilla, se está obligado a retroceder a la casilla 30.
-    ·Cárcel: Casilla 56.
-Si se cae en esta casilla, hay que permanecer dos turnos sin jugar.
-    ·Dados: Casillas 26 y 53. 
-Si se cae en estas casillas, se suma la marcación de la casilla de los dados 
-(26 o 53) y se avanza tanto como resulte.
-    ·Calavera: Casilla 58. 
-Si se cae en esta casilla, hay que volver a la Casilla 1.
-    
-    ¡¡Mirar como hacer esto!!
-
-    ·Entrar al Jardín de la Oca: 
-Es necesario sacar los puntos justos para entrar, en caso de exceso se 
-retroceden tantas casillas como puntos sobrantes.
-
-
-Las dimensiones de un tablero de la oca son de la siguiente manera:
+PROTOTIPOS DWE TABLERO:
     
 
          |24| |23| |22| |21| |20| |19| |18| |17| |16|
@@ -41,24 +12,18 @@ Las dimensiones de un tablero de la oca son de la siguiente manera:
 
 
 
-             |25| |24| |23| |22| |21| |20| |19| |18|
-        |26|      |47| |46| |45| |44| |43| |42|      |17|
-        |27| |48|           |62| |61| |60|      |41| |16|
-        |28| |49|        |        |        |59| |40| |15|
-        |29| |50|        |   63   |        |58| |39| |14|
-        |30| |51|        |________|        |57| |40| |13|
-        |31|      |52| |53| |54| |55| |56|      |39| |12|
-             |32| |33| |34| |35| |36| |37| |38|      |11|
-   | 1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|
+                 |25| |24| |23| |22| |21| |20| |19| |18|
+              |26|    |49| |48| |47| |46| |45| |44|    |17|
+              |27|   |50|       ________            |43|   |16|
+              |28| |51|        |         |62| |61|    |42| |15|
+              |29| |52|        |   63   |        |60| |41| |14|
+              |30|   |53|      |________|      |59|   |40| |13|
+                |31|    |54| |55| |56| |57| |58|    |39|   |12|
+                   |32| |33| |34| |35| |36| |37| |38|    |11|
+         | 1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|
 
  */
 package oca;
-
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 
 /*
  * @author aleja
@@ -67,10 +32,7 @@ public class Tablero {
 
     private Casilla[] casilla;
     private String[] nombreCasilla = new String[64];
-
-    
-
-    
+  
 
     //vamos a crear el tablero por defecto, ya que va a haber un solo tablero
     public Tablero() {
@@ -78,6 +40,8 @@ public class Tablero {
         //el tablero esta formado de 63 casillas, para representar eso,
         //crearemos un array de 63 posiciones
         this.casilla = new Casilla[64];
+        
+        //metodo para llenar el tablero de casillas
         llenarTablero();
     }
 
@@ -95,10 +59,6 @@ public class Tablero {
 
         return this.nombreCasilla[i];
     }
-    
-    private static String mostrarJugadores(ArrayList<Jugador> jugadores) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 //    Al hacer la prueba, vemos que todo apunta a null, por tanto vamos a rellenar
 //    el tablero de las diferentes casillas
@@ -107,6 +67,7 @@ public class Tablero {
         //creamos un for para recorrer el arrat con las casillas
         for (int i = 0; i < this.casilla.length; i++) {
 
+            //dependeindo de la casilla, sera de un tipo u otro
             if (i == 5 || i == 6 || i == 9 || i == 12 || i == 14
                     || i == 18 || i == 19 || i == 23 || i == 26 || i == 27
                     || i == 31 || i == 32 || i == 36 || i == 41 || i == 42

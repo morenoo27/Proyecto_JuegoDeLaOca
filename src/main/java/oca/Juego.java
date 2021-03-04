@@ -1,33 +1,11 @@
-/*
-Aqui haremos el funcionamiento del juego
-
-
-Para que sea de jugadores variables empezariamos con
-
-int cantidadJugadores;
-
-do{
-    System.out.println("¿Cantidad de jugaores?");
-    cantidadJugadores = teclado.nextInt();
-}while(cantidadJugadores < 0)
-
-for (int i = 0; i < cantidadJugadores; i++) {
-            
-    System.out.println("¿Nombre del jugador " + (i+1) + "?");
-    nombre = teclado.nextLine();
-            
-    System.out.println("¿Apodo del jugador " + (i+1) + "?(Solo una letra)");
-    apodo = teclado.nextLine();
-            
-    jugadores[i] = new Jugador(nombre, apodo);
-            
-}
+/**
+ * Aqui haremos el funcionamiento del juego
+ *
  */
 package oca;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -50,7 +28,7 @@ public class Juego {
      * JOption, ademas tambien le añadiremos los jugadores y sus respectivas
      * posiciones
      */
-    private static final JLabel mapa = new JLabel("<html>"
+    private static JLabel mapa = new JLabel("<html>"
             + "    <pre>"
             + "             |25| |24| |23| |22| |21| |20| |19| |18|\n"
             + "          |26|    |49| |48| |47| |46| |45| |44|    |17|\n"
@@ -70,32 +48,43 @@ public class Juego {
     public static void main(String[] args) {
 
         /**
-         * Vamos a crear una lista variable para asi poder meter a la cantidad
-         * de jugadores que nosotros queramos. Aunque normalmente el juego esta
-         * pensado para 4 jugaores, por temas de testeo lo podremos hacer
-         * incluso para una persona solo
+         * para empezar lo primero que realizaremos resa una ventana que decida
+         * cuantos jugadorea van a jugar. Establecido estan 4, pero podemos
+         * poner los que queramso
          */
+        //cremos el array con las opciones(debe ser string para ser mostrado en JOption)
         String[] opciones = {"2", "3", "4"};
-        
+
+        //almacenamos el numero que sera
         String numero;
-        
+
         numero = String.valueOf(JOptionPane.showInputDialog(null, "¿Cuantos jugadores?", "INICIO", 0, ICONO, opciones, 1));
-        
+
+        //por medio de conversion a int obtenemos los jugadores
         int players = Integer.parseInt(numero);
-        
+
+        //una evz sabemos los jugadores comencemos con la creacion de cada jugador
         for (int i = 0; i < players; i++) {
 
+            //mensaje para pedir nombre de cada jugador
             int pos = i + 1;
-            
+
             String nombre = JOptionPane.showInputDialog(null, "Jugador " + pos
                     + "\nIntroduzca su nombre:", "Jugador", JOptionPane.INFORMATION_MESSAGE);
 
+            //una evz tenemos el parametro, creamos el objeto jugador y lo añadimos a nuestra lista
             Jugador jugador = new Jugador(nombre);
             jugadores.add(jugador);
         }
 
         decidirOrden(jugadores);
 
+        /**
+         * y a continuacion empezamos a jugar, haremos un do while para que los
+         * turnos vayan avanzando segun van tirando los jugadores, hastaq ue uno
+         * de ellos llegue al Jardin y rompa el bucle, proclamandose ganador de
+         * la oca
+         */
         boolean fin = true;
         int t = 1;
 
@@ -105,14 +94,34 @@ public class Juego {
 
             for (int i = 0; i < jugadores.size(); i++) {
 
+                //turno de que el jugador "i" juegue su turno
                 jugadores.get(i).jugarTurno();
 
-                JOptionPane.showMessageDialog(null, mapa, "turno", 0, ICONO);
-                
-                fin = jugadores.get(i).isWin(); 
+                //actualizamos el mapa
+                mapa = new JLabel("<html>"
+                        + "    <pre>"
+                        + "             |25| |24| |23| |22| |21| |20| |19| |18|\n"
+                        + "          |26|    |49| |48| |47| |46| |45| |44|    |17|\n"
+                        + "        |27|   |50|       ________            |43|   |16|\n"
+                        + "        |28| |51|        |         |62| |61|    |42| |15|\n"
+                        + "        |29| |52|        |   63   |        |60| |41| |14|\n"
+                        + "        |30|   |53|      |________|      |59|   |40| |13|\n"
+                        + "          |31|    |54| |55| |56| |57| |58|    |39|   |12|\n"
+                        + "             |32| |33| |34| |35| |36| |37| |38|    |11|\n"
+                        + "   | 1| | 2| | 3| | 4| | 5| | 6| | 7| | 8| | 9| |10|\n"
+                        + "    </pre>"
+                        + mostrarJugadores(jugadores)
+                        + "</html>");
+
+                //mostramos el mapa con el turno y ls posiciones de los jugadores
+                JOptionPane.showMessageDialog(null, mapa, turno, 0, ICONO);
+
+                fin = jugadores.get(i).isWin();
             }
 
-        } while (fin);
+            //actualizamos el turno sumando 1
+            t++;
+        } while (!fin);
     }
 
     /**
@@ -121,17 +130,16 @@ public class Juego {
      * los jugadores
      *
      * @param jugadores : jugadores que hay
-     * @return texto con la info de los jugadores 
+     * @return texto con la info de los jugadores
      */
     public static String mostrarJugadores(ArrayList<Jugador> jugadores) {
 
-        String texto = "prueba<br/>";
+        String texto = "<strong>Jugadores:</strong><br/>";
         for (int i = 0; i < jugadores.size(); i++) {
 
             texto += jugadores.get(i).toString() + "<br/>";
         }
 
-        texto += jugadores.size();
         return texto;
     }
 
