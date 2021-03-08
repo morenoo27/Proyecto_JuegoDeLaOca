@@ -117,8 +117,8 @@ final class Casilla {
             case PUENTE12:
                 
                 titulo = "¡Te has caido del puente!";
-                mensaje = "Oh no te ahs caido del puente y\n"
-                        + "has llegado a parar en la posada...\n"
+                mensaje = "Oh no te has caido del puente y\n"
+                        + "has llegado a parar a la posada...\n"
                         + "Pierdes un turno";
                 ICONO = imagenPuente;
                 break;
@@ -138,13 +138,13 @@ final class Casilla {
             case DADOS:
                 
                 titulo = "¡¡DADOS!!";
-                mensaje = "¡Te sumas 8!";
+                mensaje = "¡Pues sumate esta!";
                 ICONO = imagenDados;
                 break;
             case CARCEL:
                 
                 titulo = "Has caido en la carcel...";
-                mensaje = "3 turnos en la carcel";
+                mensaje = "Por robar mi corazoncito bb te amo";
                 ICONO = imagenCarcel;
                 break;
             case CALAVERA:
